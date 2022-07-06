@@ -8,7 +8,7 @@ import snare from "./sounds/snare.wav";
 import tink from "./sounds/tink.wav";
 import tom from "./sounds/tom.wav";
 
-//changing game mode and app mode
+//Game mode
 let app_mode = "";
 const start_game_btn = document.getElementById("start_game");
 start_game_btn.addEventListener("click", () => {
@@ -41,6 +41,61 @@ record_mode_btn.addEventListener("click", () => {
   start = Date.now();
   console.log(record);
 });
+
+// var playback_mode = "";
+const playback_btn = document.getElementById("playback");
+playback_btn.addEventListener("click", () => {
+  if (app_mode === "playback") {
+    playback_btn.textContent = "Playback";
+    // playback_mode = "";
+    app_mode = "";
+  } else {
+    playback_btn.textContent = "Stop playback";
+    // playback_mode = "playback";
+    app_mode = "playback";
+
+    record.forEach((k) => {
+      console.log(k.key);
+      key_config.forEach((m) => {
+        if (k.key === m.key) {
+          console.log(m.sound);
+          setTimeout(() => {
+            const audio = new Audio(m.sound);
+            audio.play();
+          }, k.duration);
+        }
+      });
+    });
+  }
+});
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("settings");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function () {
+  modal.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  modal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+// settings_btn = document.getElementById("settings");
 
 const key_config = [
   { id: "boom", key: "a", sound: boom },
@@ -128,12 +183,29 @@ key_config.forEach((k) => {
     if (e.key.toLocaleLowerCase() === k.key) {
       const audio = new Audio(k.sound);
       audio.play();
+
+      var element = document.getElementById(k.id);
+      //adding the transition
+      element.classList.add("playing");
+
+      setInterval(removeTransition, 100);
+
+      function removeTransition() {
+        //remove the transition
+        element.classList.remove("playing");
+      }
     }
 
     //if user key matches current tartget key then the increment happens
     if (app_mode === "game" && new_array[getActualPosition()] === e.key) {
       current_index++;
       score++;
+
+      if (new_array[getActualPosition()] === "") {
+        start_game_btn.textContent = "Start Game";
+        app_mode = "";
+        alert("game finished");
+      }
     }
 
     //Finding the difference between two timestamp and pushing it to console log
@@ -146,6 +218,17 @@ key_config.forEach((k) => {
         console.log(record);
       }
     }
+    // if (playback_mode === "playback") {
+    //   record.forEach((m) => {
+    //     audio.play(m.key);
+    //   });
+    // }
+
+    // record.forEach((m) => {
+    //   if (playback_mode === "playback") {
+    //     audio.play(m.key);
+    //   }
+    // });
 
     if (getActualPosition() >= new_array.legth - padding_count - 1) {
     }

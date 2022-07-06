@@ -21,7 +21,7 @@
         <button id="start_game">Start Game</button>
         <button id="record">Record</button>
         <button id="playback">Playback</button>
-        <button>Settings</button>
+        <button id="settings">Settings</button>
       </div>
     </nav>
     <div class="main-container">
@@ -33,6 +33,43 @@
       </div>
       <div id="targets" class="sequence container"></div>
       <div id="controls" class="control container"></div>
+    </div>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">&times;</span>
+          <h2>Change keybinds</h2>
+        </div>
+        <div class="modal-body">
+          <label for="Boom">Boom</label>
+          <input type="text" id="Boom" /><br />
+
+          <label for="Clap">Clap</label>
+          <input type="text" id="Clap" /><br />
+
+          <label for="Hi hat">Hi hat</label>
+          <input type="text" id="Hi hat" /><br />
+
+          <label for="Kick">Kick</label>
+          <input type="text" id="Kick" /><br />
+
+          <label for="Open hat">Open hat</label>
+          <input type="text" id="Open hat" /><br />
+
+          <label for="Ride">Ride</label>
+          <input type="text" id="Ride" /><br />
+
+          <label for="Snare">Snare</label>
+          <input type="text" id="Snare" /><br />
+
+          <label for="Tink">Tink</label>
+          <input type="text" id="Tink" /><br />
+
+          <label for="Tom">Tom</label>
+          <input type="text" id="Tom" /><br />
+          <button id="submit">Submit</button>
+        </div>
+      </div>
     </div>
     <script type="module" src="/main.js"></script>
   </body>
